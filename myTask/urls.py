@@ -20,6 +20,14 @@ from django.contrib import admin
 admin.autodiscover()
 
 urlpatterns = [
-	url(r'^/', 'task.views.home'),
+	url(r'^$', 'task.views.home'),
+    url(r'^accounts/login/$', 'task.views.login'),
+    url(r'^accounts/auth/$', 'task.views.auth_view'),
+    url(r'^accounts/loggedin/$', 'task.views.loggedin'),
+    url(r'^accounts/invalid_login/$', 'task.views.invalid_login'),
+    url(r'^accounts/logout/$', 'task.views.logout'),
+    url(r'^accounts/register/$', 'task.views.register_user'),
+    url(r'^accounts/register_success/$', 'task.views.register_success'),
+
     url(r'^admin/', include(admin.site.urls)),
 ]

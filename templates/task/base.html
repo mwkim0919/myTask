@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+
+{% load staticfiles %}
+
+<html lang="en">
+
+    <head>
+	    <meta charset="utf-8">
+	    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+	    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+        <title>MyTask</title>
+
+        <link rel="stylesheet" type="text/css" href="{% static 'task/css/bootstrap.min.css' %}" />
+        
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
+	    <script src="{% static 'task/js/bootstrap.min.js' %}"></script>
+	    <script src="{% static 'task/js/user.js' %}"></script>
+    </head>
+
+    <body>
+    	<nav class="navbar navbar-default">
+			<div class="container-fluid">
+				<!-- Brand and toggle get grouped for better mobile display -->
+				<div class="navbar-header">
+					<button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+						<span class="sr-only">Toggle navigation</span>
+						<span class="icon-bar"></span>
+						<span class="icon-bar"></span>
+						<span class="icon-bar"></span>
+					</button>
+					<a class="navbar-brand" href="/">MyTask</a>
+				</div>
+
+				<!-- Collect the nav links, forms, and other content for toggling -->
+				<div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+					<ul class="nav navbar-nav navbar-right">
+					    <li data-target="#registerPopup" data-toggle="modal">
+		                    <a class="btn btn-default" href="#">Sign Up</a>
+		                </li>
+				    </ul>
+				    <form action="/accounts/auth/" method="POST" class="navbar-form pull-right form-inline">
+				        {% csrf_token %}
+				    	<div class="form-group"> 
+				            <label for="username">Username: </label>
+				            <input type="text" class="form-control" name="username" value="" id="username" placeholder="Username">
+						</div>
+				    	<div class="form-group"> 
+				            <label for="password">Password: </label>
+				            <input type="password" class="form-control" name="password" value="" id="password" placeholder="Password">
+				        </div>
+				        <button type="submit" class="btn btn-default" value="Log In">Sign In</button>
+				    </form>
+				</div><!-- /.navbar-collapse -->
+			</div><!-- /.container-fluid -->
+		</nav>
+
+		{% block content %}
+	    {% endblock %}
+
+	    <!-- Registration Popup -->
+	    <div class="modal fade" id="registerPopup" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+	        <div class="modal-dialog">
+	            <div class="modal-content">
+	                <div class="modal-header">
+	                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+	                    <h4 class="modal-title" id="myModalLabel">User Registration</h4>
+	                </div>
+	                {% if form.errors %}
+	                <p style="color:red">Some fields are invalid, please try again.</p>
+	                {% endif %}
+	                <div class="modal-body">
+
+	                    <form class="form-horizontal" action="/accounts/register/" method="POST">
+	                        {% csrf_token %}
+	                        <div class="form-group">
+	                            <label for="username" class="col-sm-2 control-label">Username </label>
+	                            <div class="col-sm-6">
+	                            <input type="text" class="form-control" name="username" value="" id="username" placeholder="Username (less than 30 characters)">
+	                            </div>
+	                        </div>
+	                        <div class="form-group">
+	                            <label for="email" class="col-sm-2 control-label">Email</label>
+	                            <div class="col-sm-6">
+	                                <input type="text" class="form-control" name="email" value="" id="email" placeholder="E-mail">
+	                            </div>
+	                        </div>
+	                        <div class="form-group">
+	                            <label class="col-sm-2 control-label" for="password1">Password</label>
+	                            <div class="col-sm-6">
+	                                <input type="password" class="form-control" name="password1" value="" id="password1" placeholder="Password">
+	                            </div>
+	                        </div>
+	                        <div class="form-group">
+	                            <label class="col-sm-2 control-label" for="password2">Confirm Password</label>
+	                            <div class="col-sm-6">
+	                                <input type="password" class="form-control" name="password2" value="" id="password2" placeholder="Confirm Password">
+	                            </div>
+	                        </div>
+	                        <div class="form-group">
+	                            <div class="col-sm-offset-2 col-sm-2">
+	                                <input type="submit" class="btn btn-default" value="Submit" />
+
+	                                <p><a id="loginFromRegPopup" href="#">login</a></p>
+	                            </div>
+	                        </div>
+	                    </form>
+	                </div>
+	            </div>
+	        </div>
+	    </div>
+    </body>
+
+</html>

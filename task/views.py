@@ -21,51 +21,43 @@ def home(request):
     c['user_authed'] = False
     if request.user.is_authenticated():
         c['user_authed'] = True
-    # template = loader.get_template('task/home.html')
+
     return render_to_response('task/home.html', c)
 
 ############################
 # Login and Register
 ############################
-def login(request):
-    if request.user.is_authenticated():
-        return HttpResponseRedirect('/')
-    else:
-        c = {}
-        c.update(csrf(request))
-        c.update({'nextURL': request.GET.get('next', '/')})
-        return render_to_response('landingPageView.html', c)
 
+def login(request):
+    c = {}
+    c.update(csrf(request))
+    return render_to_response('task/account/login.html', c)
 
 def auth_view(request):
     # GET username, if there is no valid data, return ''.
     username = request.POST.get('username', '')
     password = request.POST.get('password', '')
-    nextURL = request.POST.get('next', '/dashboard')
-    user = auth.authenticate(username=username, password=password)
+    user = auth.authenticate(username = username, password = password)
 
     if user is not None:
         auth.login(request, user)
-        return HttpResponseRedirect(nextURL)
+        return HttpResponseRedirect('/accounts/loggedin')
     else:
         return HttpResponseRedirect('/accounts/invalid_login')
-
 
 def loggedin(request):
     c = {}
     c.update(csrf(request))
     c['username'] = request.user.username
-    return HttpResponseRedirect('/dashboard')
-
+    test = request.POST.get('title', '')
+    return HttpResponseRedirect('/')
 
 def invalid_login(request):
-    return render_to_response('accounts/invalid_login.html')
-
+    return render_to_response('task/account/invalid_login.html')
 
 def logout(request):
     auth.logout(request)
-    return render_to_response('accounts/logout.html')
-
+    return render_to_response('task/account/logout.html')
 
 def register_user(request):
     args = {}
@@ -75,9 +67,12 @@ def register_user(request):
         if form.is_valid():
             form.save()
             args['registered'] = True
-            return render_to_response('landingPageView.html', args)
+            return render_to_response('task/home.html', args)
         else:
             args['form'] = form
-            return render_to_response('landingPageView.html', args)
+            return render_to_response('task/home.html', args)
     args['form'] = RegistrationForm()
-    return render(request, 'landingPageView.html', args)
+    return render(request, 'task/home.html', args)
+
+def register_success(request):
+    return render_to_response('task/account/register_success.html')
