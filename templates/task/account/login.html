@@ -1,25 +1,21 @@
 {% extends "task/base.html" %}
 
 {% block content %}
-    <center><h2>User Login</h2></center>
-    <hr></hr>
-
-    {% if form.errors %}
-        <p class="error">Sorry, that's not a valid username or password.</p>
-    {% endif %}
-
     <div class="container">
-    <form action="/accounts/auth/" method="POST">
-        {% csrf_token %}
-        <p>
-            <label for="username">Username</label>
-            <input type="text" name="username" value="" id="username" placeholder="Username">
-        </p>
-        <p>
-            <label for="password">Password</label>
-            <input type="password" name="password" value="" id="password" placeholder="Password">
-        </p>
-        <input type="submit" value="Log In" />
-    </form>
-    </div>
+        {% if form.errors %}
+            <p class="error">Sorry, that's not a valid username or password.</p>
+        {% endif %}
+
+        <form action="/accounts/auth/" method="POST" class="form-signin">
+            {% csrf_token %}
+            <h2 class="form-signin-heading">Please sign in</h2>
+            <label for="username" class="sr-only">Username</label>
+            <input type="text" name="username" value="" id="username" placeholder="Username (less than 30 characters)" class="form-control" required autofocus>
+            <label for="password" class="sr-only">Password</label>
+            <input type="password" name="password" value="" id="password" placeholder="Password" class="form-control" required>
+            <button class="btn btn-lg btn-primary btn-block" type="submit">Sign in</button>
+        </form>
+
+    </div> <!-- /container -->
+
 {% endblock %}

@@ -8,6 +8,11 @@ from forms import RegistrationForm
 from models import *
 from datetime import datetime
 
+def home(request):
+    context = {}
+    context.update(csrf(request))
+    template = 'task/home.html'
+    return render(request, template, context)
 
 ############################
 # Main Page
@@ -15,64 +20,67 @@ from datetime import datetime
 
 
 # Rendering the main page '/'
-def home(request):
-    c = {}
-    c.update(csrf(request))
-    c['user_authed'] = False
-    if request.user.is_authenticated():
-        c['user_authed'] = True
+# def home(request):
+#     c = {}
+#     c.update(csrf(request))
+#     c['user_authed'] = False
+#     if request.user.is_authenticated():
+#         c['user_authed'] = True
 
-    return render_to_response('task/home.html', c)
+#     return render(request, 'task/home.html', c)
 
-############################
-# Login and Register
-############################
+# ############################
+# # Login and Register
+# ############################
 
-def login(request):
-    c = {}
-    c.update(csrf(request))
-    return render_to_response('task/account/login.html', c)
+# def login(request):
+#     c = {}
+#     c.update(csrf(request))
+#     return render_to_response('task/account/login.html', c)
 
-def auth_view(request):
-    # GET username, if there is no valid data, return ''.
-    username = request.POST.get('username', '')
-    password = request.POST.get('password', '')
-    user = auth.authenticate(username = username, password = password)
+# def auth_view(request):
+#     # GET username or if there is no valid data, return ''.
+#     username = request.POST.get('username', '')
+#     password = request.POST.get('password', '')
 
-    if user is not None:
-        auth.login(request, user)
-        return HttpResponseRedirect('/accounts/loggedin')
-    else:
-        return HttpResponseRedirect('/accounts/invalid_login')
+#     user = auth.authenticate(username=username, password=password)
 
-def loggedin(request):
-    c = {}
-    c.update(csrf(request))
-    c['username'] = request.user.username
-    test = request.POST.get('title', '')
-    return HttpResponseRedirect('/')
+#     if user is not None:
+#         auth.login(request, user)
+#         return HttpResponseRedirect('/accounts/loggedin')
+#     else:
+#         return HttpResponseRedirect('/accounts/invalid_login')
 
-def invalid_login(request):
-    return render_to_response('task/account/invalid_login.html')
+# def loggedin(request):
+#     c = {}
+#     c.update(csrf(request))
+#     c['username'] = request.user.username
+#     # c['user_authed'] = is_authenticated(request)
+#     test = request.POST.get('title', '')
+#     return HttpResponseRedirect('/')
 
-def logout(request):
-    auth.logout(request)
-    return render_to_response('task/account/logout.html')
+# def loggedin(request):
+#     return render_to_response('task/account/loggedin.html',
+#         {'username': request.user.username})
 
-def register_user(request):
-    args = {}
-    args.update(csrf(request))
-    if request.method == 'POST':
-        form = RegistrationForm(request.POST)
-        if form.is_valid():
-            form.save()
-            args['registered'] = True
-            return render_to_response('task/home.html', args)
-        else:
-            args['form'] = form
-            return render_to_response('task/home.html', args)
-    args['form'] = RegistrationForm()
-    return render(request, 'task/home.html', args)
+# def invalid_login(request):
+#     return render_to_response('task/account/invalid_login.html')
+#     # return HttpResponseRedirect('/accounts/login')
 
-def register_success(request):
-    return render_to_response('task/account/register_success.html')
+# def logout(request):
+#     auth.logout(request)
+#     return render_to_response('task/account/logout.html')
+
+# def register_user(request):
+#     if request.method == 'POST':
+#         form = RegistrationForm(request.POST)
+#         if form.is_valid():
+#             form.save()
+#             return HttpResponseRedirect('/accounts/register_success')
+#     args = {}
+#     args.update(csrf(request))
+#     args['form'] = RegistrationForm()
+#     return render(request, 'task/account/register.html', args)
+
+# def register_success(request):
+#     return render_to_response('task/account/register_success.html')
