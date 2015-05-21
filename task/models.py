@@ -19,7 +19,6 @@ class Task(models.Model):
 	location = models.CharField('Location', max_length = 50, null = True, blank = True)
 	startDateTime = models.DateTimeField('Start', null = False)
 	endDateTime = models.DateTimeField('End', null = False)
-	# forms.DateTimeField(input_formats = ['%Y-%m-%d %H:%M',])
 	done = models.BooleanField('Done', default = False)
 	user = models.ForeignKey(User, verbose_name = u'User ID')
 

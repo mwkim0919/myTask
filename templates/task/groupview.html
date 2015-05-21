@@ -1,0 +1,116 @@
+{% extends "task/base.html" %}
+
+{% block content %}
+<div class="row">
+	<div class="col-lg-6 col-lg-offset-3">
+		<div class="progress">
+			<div class="progress-bar progress-bar-success" role="progressbar" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100" style="min-width: 2em;">
+			0%
+		</div>
+	</div>
+</div>
+<div class="row">
+	<div class="container">
+		<div class="col-lg-4">
+			<div class="panel panel-default">
+				<div class="panel-heading clearfix">
+					<h4 class="panel-title pull-left" style="padding-top: 7.5px;">Personal</h4>
+					<div class="btn-group pull-right">
+						<button class="btn btn-default" type="button" data-toggle="modal" data-target="#personal">
+					        <span class="glyphicon glyphicon-plus"></span> Add Task
+				        </button>
+					</div>
+				</div>
+				<div class="panel-body">
+					Panel content
+				</div>
+			</div>
+		</div>
+		<div class="col-lg-4">
+			<div class="panel panel-primary">
+				<div class="panel-heading clearfix">
+					<h4 class="panel-title pull-left" style="padding-top: 7.5px;">Work</h4>
+					<div class="btn-group pull-right">
+						<button class="btn btn-default" type="button" data-toggle="modal" data-target="#work">
+					        <span class="glyphicon glyphicon-plus"></span> Add Task
+				        </button>
+					</div>
+				</div>
+				<div class="panel-body">
+					Panel content
+				</div>
+			</div>
+		</div>
+		<div class="col-lg-4">
+			<div class="panel panel-info">
+				<div class="panel-heading clearfix">
+					<h4 class="panel-title pull-left" style="padding-top: 7.5px;">School</h4>
+					<div class="btn-group pull-right">
+						<button class="btn btn-default" type="button" data-toggle="modal" data-target="#school">
+					        <span class="glyphicon glyphicon-plus"></span> Add Task
+				        </button>
+					</div>
+				</div>
+				<div class="panel-body">
+					Panel content
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+
+<!-- Personal, Work, School Modals -->
+<div class="modal fade" id="personal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+	<div class="modal-dialog">
+		<div class="modal-content">
+			<div class="modal-header">
+				<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+				<h4 class="modal-title" id="myModalLabel">Modal title</h4>
+			</div>
+			<div class="modal-body">
+				...
+			</div>
+			<div class="modal-footer">
+				<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+				<button type="button" class="btn btn-primary">Save changes</button>
+			</div>
+		</div>
+	</div>
+</div>
+
+<div class="modal fade" id="work" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+	<div class="modal-dialog">
+		<div class="modal-content">
+			<div class="modal-header">
+				<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+				<h4 class="modal-title" id="myModalLabel">Modal title</h4>
+			</div>
+			<div class="modal-body">
+				...
+			</div>
+			<div class="modal-footer">
+				<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+				<button type="button" class="btn btn-primary">Save changes</button>
+			</div>
+		</div>
+	</div>
+</div>
+
+<div class="modal fade" id="school" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+	<div class="modal-dialog">
+		<div class="modal-content">
+			<div class="modal-header">
+				<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+				<h4 class="modal-title" id="myModalLabel">Modal title</h4>
+			</div>
+			<div class="modal-body">
+				...
+			</div>
+			<div class="modal-footer">
+				<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+				<button type="button" class="btn btn-primary">Save changes</button>
+			</div>
+		</div>
+	</div>
+</div>
+{% endblock %}

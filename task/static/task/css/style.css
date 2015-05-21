@@ -1,3 +1,7 @@
 body {
 	margin-top: 70px;
 }
+
+span#username {
+	margin-right: 10px;
+}

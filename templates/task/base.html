@@ -16,13 +16,13 @@
         <link rel="stylesheet" type="text/css" href="{% static 'task/css/login.css' %}" />
 
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
-	    <script src="{% static 'task/js/bootstrap.min.js' %}"></script>
-	    <script src="{% static 'task/js/user.js' %}"></script>
-	    <script src="{% static 'task/js/csrf.js' %}"></script>
+	    <script type="text/javascript" src="{% static 'task/js/bootstrap.min.js' %}"></script>
+	    <script type="text/javascript" src="{% static 'task/js/user.js' %}"></script>
+	    <script type="text/javascript" src="{% static 'task/js/csrf.js' %}"></script>
     </head>
 
     <body>
-    	<div class="navbar navbar-default navbar-fixed-top">
+    	<div class="navbar transparent navbar-default navbar-fixed-top">
 		    <div class="container">
 		        <div class="navbar-header">
 		            <button class="navbar-toggle" type="button" data-toggle="collapse" data-target="#navbar-main">
@@ -34,10 +34,16 @@
 		        </div>
 		        <center>
 		            <div class="navbar-collapse collapse" id="navbar-main">
-		            	<div class="navbar-right">
-			            	<a class="btn btn-default navbar-btn" href="/accounts/login/" role="button">Sign In</a>
-                            <a class="btn btn-default navbar-btn" href="/accounts/logout/" role="button">Sign Out</a>
-		                    <a class="btn btn-primary navbar-btn" href="/accounts/register/" role="button">Sign Up</a>
+		            	<!-- <div class="navbar-right"> -->
+		            	<ul class="nav navbar-nav navbar-right">
+	                        {% if not user.is_authenticated %}
+				            	<a class="btn btn-default navbar-btn" href="/accounts/login/" role="button">Sign In</a>
+			                    <a class="btn btn-primary navbar-btn" href="/accounts/register/" role="button">Sign Up</a>
+			            	{% else %}
+				            	<span id="username">Logged in as <b>{{ user.username }}</b></span>
+	                            <a class="btn btn-default navbar-btn" href="/accounts/logout/" role="button">Sign Out</a>
+                            {% endif %}
+	                    </ul>
 	                    </div>
 		            </div>
 		        </center>
