@@ -1,6 +1,8 @@
 {% extends "task/base.html" %}
 
 {% block content %}
+{% csrf_token %}
+
 <div class="row">
 	<div class="col-lg-6 col-lg-offset-3">
 		<div class="progress">
@@ -65,14 +67,42 @@
 		<div class="modal-content">
 			<div class="modal-header">
 				<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-				<h4 class="modal-title" id="myModalLabel">Modal title</h4>
+				<h4 class="modal-title" id="myModalLabel">Add Personal Task</h4>
 			</div>
 			<div class="modal-body">
-				...
+				<div class="form-group"> 
+					<label for="taskName">Name:</label>
+					<input type="text" class="form-control" name="taskName" value="" id="taskName" placeholder="Task Name">
+				</div>
+				<fieldset disabled>
+				<div class="form-group">
+					<label for="disabledSelect">Task Type:</label>
+					<select id="disabledSelect" name="taskType" value="Personal" class="form-control">
+						<option>Personal</option>
+					</select>
+				</div>
+				</fieldset>
+				<div class="form-group">
+					<label for="description">Description:</label>
+					<input type="text" class="form-control" name="description" value="" id="description" placeholder="Description">
+				</div>
+				<div class="form-group">
+					<label for="location">Location:</label>
+					<input type="text" class="form-control" name="location" value="" id="location" placeholder="Location">
+				</div>
+				<div class="form-group">
+					<label for="startDateTime">Start:</label>
+					<input type="text" class="form-control" name="startDateTime" value="" id="date_timepicker_start">
+				</div>
+				<!-- <span class="input-group-addon"><span class="glyphicon glyphicon-calendar"></span></span> -->
+				<div class="form-group">
+					<label for="endDateTime">End:</label>
+					<input type="text" class="form-control" name="endDateTime" value="" id="date_timepicker_end">
+				</div>
+				<!-- <span class="input-group-addon"><span class="glyphicon glyphicon-calendar"></span></span> -->
 			</div>
 			<div class="modal-footer">
-				<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-				<button type="button" class="btn btn-primary">Save changes</button>
+				<button type="button" onclick="addTask()" class="btn btn-primary">Submit</button>
 			</div>
 		</div>
 	</div>
@@ -113,4 +143,31 @@
 		</div>
 	</div>
 </div>
+
+<script type="text/javascript">
+    $(function () {
+        jQuery(function(){
+			jQuery('#date_timepicker_start').datetimepicker({
+				// format:'Y/m/d',
+				onShow:function( ct ){
+					this.setOptions({
+						maxDate:jQuery('#date_timepicker_end').val()?jQuery('#date_timepicker_end').val():false
+					})
+				},
+				timepicker:true
+			});
+			
+			jQuery('#date_timepicker_end').datetimepicker({
+				// format:'Y/m/d',
+				onShow:function( ct ){
+					this.setOptions({
+						minDate:jQuery('#date_timepicker_start').val()?jQuery('#date_timepicker_start').val():false
+					})
+				},
+				timepicker:true
+			});
+		});
+    });
+</script>
+
 {% endblock %}

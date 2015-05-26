@@ -14,11 +14,49 @@ def home(request):
     # c = {}
     return render(request, 'task/home.html')
 
-def groupview(request):
+def groupView(request):
     if request.user.is_authenticated():
         return render(request, 'task/groupview.html')
     else:
         return HttpResponseRedirect('/accounts/login')
+
+def addTask(request):
+    if request.method == 'POST':
+        if request.POST['method'] == 'delete':
+            taskID = request.POST['taskID']
+            target = Task.objects.get(taskID = taskID)
+            target.delete()
+            return HttpResponseRedirect('/groupview')
+        if request.POST['method'] == 'edit':
+            taskID = request.POST['taskID']
+            target = Task.objects.get(taskID = taskID)
+            target.taskName = request.POST['taskName']
+            target.taskType = request.POST['taskType']
+            target.description = request.POST['description']
+            target.location = request.POST['location']
+            target.startDateTime = request.POST['startDateTime']
+            target.endDateTime = request.POST['endDateTime']
+            target.done = request.POST['done']
+            target.save()
+            return HttpResponseRedirect('/groupview')
+        if request.POST['method'] == 'add':
+            taskName = request.POST['taskName']
+            taskType = request.POST['taskType']
+            description = request.POST['description']
+            location = request.POST['location']
+            startDateTime = request.POST['startDateTime']
+            endDateTime = request.POST['endDateTime']
+            done = request.POST['done']
+            userID = request.user.id
+            user = User.objects.get(id = userID)
+            task = Task(taskName = taskName, taskType = taskType, description = description,
+                location = location, startDateTime = startDateTime, endDateTime = endDateTime,
+                done = done, user = user)
+            task.save()
+            return HttpResponseRedirect('/groupview')
+    return HttpResponseRedirect('/groupview/add')
+
+
 
 ############################
 # Login and Register
