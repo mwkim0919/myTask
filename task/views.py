@@ -16,7 +16,25 @@ def home(request):
 
 def groupView(request):
     if request.user.is_authenticated():
-        return render(request, 'task/groupview.html')
+        userID = request.user.id
+        user = User.objects.get(id=userID)
+        print userID
+        tasks = Task.objects.filter(user=user).order_by('-startDateTime')
+        pTasks = []
+        wTasks = []
+        sTasks = []
+        for task in tasks:
+            if (task.taskType == 'Personal'):
+                pTasks.append(task)
+            elif(task.taskType == 'Work'):
+                wTasks.append(task)
+            elif(task.taskType == 'School'):
+                sTasks.append(task)
+        print pTasks
+        print wTasks
+        print sTasks
+        context = {'pTasks':pTasks, 'wTasks':wTasks, 'sTasks':sTasks}
+        return render(request, 'task/groupview.html', context)
     else:
         return HttpResponseRedirect('/accounts/login')
 
@@ -41,7 +59,7 @@ def addTask(request):
             return HttpResponseRedirect('/groupview')
         if request.POST['method'] == 'add':
             taskName = request.POST['taskName']
-            taskType = request.POST['taskType']
+            taskType = request.POST.get('taskType', '')
             description = request.POST['description']
             location = request.POST['location']
             startDateTime = request.POST['startDateTime']
@@ -56,6 +74,23 @@ def addTask(request):
             return HttpResponseRedirect('/groupview')
     return HttpResponseRedirect('/groupview/add')
 
+def test(request):
+    user = User.objects.get(id=1)
+    print user.username
+    for i in range(1,5):
+        pTask = Task(taskName="Personal{0}".format(i), taskType="Personal", description="desc{0}".format(i),
+            location="location", startDateTime=datetime.now(), endDateTime=datetime.now(),
+            done=True, user=user)
+        wTask = Task(taskName="Work{0}".format(i), taskType="Work", description="desc{0}".format(i),
+            location="location", startDateTime=datetime.now(), endDateTime=datetime.now(),
+            done=False, user=user)
+        sTask = Task(taskName="School{0}".format(i), taskType="School", description="desc{0}".format(i),
+            location="location", startDateTime=datetime.now(), endDateTime=datetime.now(),
+            done=True, user=user)
+        pTask.save()
+        wTask.save()
+        sTask.save()
+    return HttpResponseRedirect('/')    
 
 
 ############################

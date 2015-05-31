@@ -45,6 +45,7 @@
 			                    <a class="btn btn-primary navbar-btn" href="/accounts/register/" role="button">Sign Up</a>
 			            	{% else %}
 				            	<span id="username">Logged in as <b>{{ user.username }}</b></span>
+				            	<a class="btn btn-default navbar-btn" href="/groupview" role="button">My Schedule</a>
 	                            <a class="btn btn-default navbar-btn" href="/accounts/logout/" role="button">Sign Out</a>
                             {% endif %}
 	                    </ul>

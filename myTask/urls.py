@@ -31,5 +31,7 @@ urlpatterns = [
     url(r'^accounts/register/$', 'task.views.register_user'),
     url(r'^accounts/register_success/$', 'task.views.register_success'),
 
+    url(r'^test/$', 'task.views.test'),
+
     url(r'^admin/', include(admin.site.urls)),
 ]
