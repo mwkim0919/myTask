@@ -23,7 +23,9 @@ def groupView(request):
         pTasks = []
         wTasks = []
         sTasks = []
+        Tasks = []
         for task in tasks:
+            Tasks.append(task)
             if (task.taskType == 'Personal'):
                 pTasks.append(task)
             elif(task.taskType == 'Work'):
@@ -33,7 +35,7 @@ def groupView(request):
         print pTasks
         print wTasks
         print sTasks
-        context = {'pTasks':pTasks, 'wTasks':wTasks, 'sTasks':sTasks}
+        context = {'Tasks':Tasks, 'pTasks':pTasks, 'wTasks':wTasks, 'sTasks':sTasks}
         return render(request, 'task/groupview.html', context)
     else:
         return HttpResponseRedirect('/accounts/login')
