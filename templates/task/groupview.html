@@ -5,16 +5,15 @@
 
 <div class="row">
 	<div class="col-lg-6 col-lg-offset-3">
+		<label>My Progress: </label>
 		<div class="progress">
-			{% for task in Tasks %}
-				{% if task.done == True %}
-				{% endif %}
-			{% endfor %}
-			<div class="progress-bar progress-bar-success" role="progressbar" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100" style="min-width: 2em;">
-			0%
+			<div class="progress-bar progress-bar-success" role="progressbar" aria-valuenow="{{ taskPerc }}" aria-valuemin="0" aria-valuemax="100" style="min-width: 2em; width: {{ taskPerc }}%;">
+		    {{ taskPerc }}%
+			</div>
 		</div>
 	</div>
 </div>
+
 <div class="row">
 	<div class="container">
 		<div class="col-lg-4">
@@ -28,23 +27,22 @@
 					</div>
 				</div>
 				<div class="panel-body">
+					<!-- <div class="list-group"> -->
 					<table class="table table-hover">
 					{% for task in pTasks %}
 						{% if task.done == True %}
+							<!-- <li class="list-group-item">{{ task.taskName }}<span class="pull-right"><button class="btn btn-default" type="submit">Button</button><button class="btn btn-default" type="submit">Button</button></span></li> -->
 							<tr class="success">
-								<td>{{ task.taskName }}</td>
-								<td>{{ task.startDateTime }} - {{ task.endDateTime }}</td>
-								<td>{{ task.done }}</td>
-								<td>edit</td>
-								<td>x</td>
+								<td class="col-md-6"><b>{{ task.taskName }}</b></td>
+								<td><button class="btn btn-success" type="submit">Edit</button>
+								<button class="btn btn-danger" type="submit">Delete</button></td>
 							</tr>
 						{% else %}
+							<!-- <li class="list-group-item">{{ ask.taskName }}<span class="pull-right"><button class="btn btn-default" type="submit">Button</button><button class="btn btn-default" type="submit">Button</button></span></li> -->
 							<tr class="danger">
-								<td>{{ task.taskName }}</td>
-								<td>{{ task.startDateTime }} - {{ task.endDateTime }}</td>
-								<td>{{ task.done }}</td>
-								<td>edit</td>
-								<td>x</td>
+								<td class="col-md-6"><b>{{ task.taskName }}</b></td>
+								<td><button class="btn btn-success" type="submit">Edit</button>
+								<button class="btn btn-danger" type="submit">Delete</button></td>
 							</tr>
 						{% endif %}
 					{% endfor %}
@@ -67,19 +65,15 @@
 					{% for task in wTasks %}
 						{% if task.done == True %}
 							<tr class="success">
-								<td>{{ task.taskName }}</td>
-								<td>{{ task.startDateTime }} - {{ task.endDateTime }}</td>
-								<td>{{ task.done }}</td>
-								<td>edit</td>
-								<td>x</td>
+								<td class="col-md-6"><b>{{ task.taskName }}</b></td>
+								<td><button class="btn btn-success" type="submit">Edit</button>
+								<button class="btn btn-danger" type="submit">Delete</button></td>
 							</tr>
 						{% else %}
 							<tr class="danger">
-								<td>{{ task.taskName }}</td>
-								<td>{{ task.startDateTime }} - {{ task.endDateTime }}</td>
-								<td>{{ task.done }}</td>
-								<td>edit</td>
-								<td>x</td>
+								<td class="col-md-6"><b>{{ task.taskName }}</b></td>
+								<td><button class="btn btn-success" type="submit">Edit</button>
+								<button class="btn btn-danger" type="submit">Delete</button></td>
 							</tr>
 						{% endif %}
 					{% endfor %}
@@ -102,19 +96,15 @@
 					{% for task in sTasks %}
 						{% if task.done == True %}
 							<tr class="success">
-								<td>{{ task.taskName }}</td>
-								<td>{{ task.startDateTime }} - {{ task.endDateTime }}</td>
-								<td>{{ task.done }}</td>
-								<td>edit</td>
-								<td>x</td>
+								<td class="col-md-6"><b>{{ task.taskName }}</b></td>
+								<td><button class="btn btn-success" type="submit">Edit</button>
+								<button class="btn btn-danger" type="submit">Delete</button></td>
 							</tr>
 						{% else %}
 							<tr class="danger">
-								<td>{{ task.taskName }}</td>
-								<td>{{ task.startDateTime }} - {{ task.endDateTime }}</td>
-								<td>{{ task.done }}</td>
-								<td>edit</td>
-								<td>x</td>
+								<td class="col-md-6"><b>{{ task.taskName }}</b></td>
+								<td><button class="btn btn-success" type="submit">Edit</button>
+								<button class="btn btn-danger" type="submit">Delete</button></td>
 							</tr>
 						{% endif %}
 					{% endfor %}
@@ -133,6 +123,7 @@
 				<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
 				<h4 class="modal-title" id="myModalLabel">Add Personal Task</h4>
 			</div>
+			<form>
 			<div class="modal-body">
 				<div class="form-group"> 
 					<label for="taskName">Name:</label>
@@ -158,16 +149,15 @@
 					<label for="startDateTime">Start:</label>
 					<input type="text" class="form-control" name="startDateTime" value="" id="date_timepicker_start">
 				</div>
-				<!-- <span class="input-group-addon"><span class="glyphicon glyphicon-calendar"></span></span> -->
 				<div class="form-group">
 					<label for="endDateTime">End:</label>
 					<input type="text" class="form-control" name="endDateTime" value="" id="date_timepicker_end">
 				</div>
-				<!-- <span class="input-group-addon"><span class="glyphicon glyphicon-calendar"></span></span> -->
 			</div>
 			<div class="modal-footer">
 				<button type="button" onclick="addTask()" class="btn btn-primary">Submit</button>
 			</div>
+			</form>
 		</div>
 	</div>
 </div>

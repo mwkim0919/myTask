@@ -22,7 +22,7 @@ admin.autodiscover()
 urlpatterns = [
 	url(r'^$', 'task.views.home'),
     url(r'^groupview/$', 'task.views.groupView'),
-    url(r'^groupview/add$', 'task.views.addTask'),
+    url(r'^groupview/add/$', 'task.views.addTask'),
     url(r'^accounts/login/$', 'task.views.login'),
     url(r'^accounts/auth/$', 'task.views.auth_view'),
     url(r'^accounts/loggedin/$', 'task.views.loggedin'),

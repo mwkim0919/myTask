@@ -11,54 +11,48 @@ from datetime import datetime
 
 # The Intro Page
 def home(request):
-    # c = {}
     return render(request, 'task/home.html')
 
 def groupView(request):
     if request.user.is_authenticated():
         userID = request.user.id
         user = User.objects.get(id=userID)
-        print userID
         tasks = Task.objects.filter(user=user).order_by('-startDateTime')
         pTasks = []
         wTasks = []
         sTasks = []
         Tasks = []
+        count = 0.0
+        doneTasks = 0.0
         for task in tasks:
             Tasks.append(task)
+            count += 1
+            if (task.done == True):
+                doneTasks += 1
             if (task.taskType == 'Personal'):
                 pTasks.append(task)
             elif(task.taskType == 'Work'):
                 wTasks.append(task)
             elif(task.taskType == 'School'):
                 sTasks.append(task)
-        print pTasks
-        print wTasks
-        print sTasks
-        context = {'Tasks':Tasks, 'pTasks':pTasks, 'wTasks':wTasks, 'sTasks':sTasks}
+        if (count == 0):
+            taskPerc = 0
+        else:
+            taskPerc = int(doneTasks/count*100)
+        context = {'taskPerc':taskPerc, 'count':count, 'doneTasks':doneTasks, 'Tasks':Tasks, 
+        'pTasks':pTasks, 'wTasks':wTasks, 'sTasks':sTasks}
         return render(request, 'task/groupview.html', context)
     else:
         return HttpResponseRedirect('/accounts/login')
 
+def detailView(request):
+    if request.user.is_authenticated():
+        userID = request.user.id
+        user = User.objects.get(id=userID)
+
+
 def addTask(request):
     if request.method == 'POST':
-        if request.POST['method'] == 'delete':
-            taskID = request.POST['taskID']
-            target = Task.objects.get(taskID = taskID)
-            target.delete()
-            return HttpResponseRedirect('/groupview')
-        if request.POST['method'] == 'edit':
-            taskID = request.POST['taskID']
-            target = Task.objects.get(taskID = taskID)
-            target.taskName = request.POST['taskName']
-            target.taskType = request.POST['taskType']
-            target.description = request.POST['description']
-            target.location = request.POST['location']
-            target.startDateTime = request.POST['startDateTime']
-            target.endDateTime = request.POST['endDateTime']
-            target.done = request.POST['done']
-            target.save()
-            return HttpResponseRedirect('/groupview')
         if request.POST['method'] == 'add':
             taskName = request.POST['taskName']
             taskType = request.POST.get('taskType', '')
@@ -75,6 +69,46 @@ def addTask(request):
             task.save()
             return HttpResponseRedirect('/groupview')
     return HttpResponseRedirect('/groupview/add')
+
+def editTask(request):
+    if request.method == 'POST':
+        if request.POST['method'] == 'edit':
+            taskID = request.POST['taskID']
+            target = Task.objects.get(taskID = taskID)
+            target.taskName = request.POST['taskName']
+            target.taskType = request.POST['taskType']
+            target.description = request.POST['description']
+            target.location = request.POST['location']
+            target.startDateTime = request.POST['startDateTime']
+            target.endDateTime = request.POST['endDateTime']
+            target.done = request.POST['done']
+            target.save()
+            return HttpResponseRedirect('/groupview')
+    return HttpResponseRedirect('/groupview')
+
+def deleteTask(request):
+    if request.method == 'DELETE':
+        task = Task.objects.get(taskID=int(QueryDict(request.body).get('postpk')))
+        task.delete()
+        response_data = {}
+        response_data['msg'] = 'Task is successfully deleted.'
+
+        return HttpResponse(
+            json.dumps(response_data),
+            content_type="application/json"
+        )
+    else:
+        return HttpResponse(
+            json.dumps({"nothing to see": "this isn't happening"}),
+            content_type="application/json"
+        )
+    # if request.method == 'POST':
+    #     if request.POST['method'] == 'delete':
+    #         taskID = request.POST['taskID']
+    #         target = Task.objects.get(taskID = taskID)
+    #         target.delete()
+    #         return HttpResponseRedirect('/groupview')
+    # return HttpResponseRedirect('/groupview')
 
 def test(request):
     user = User.objects.get(id=1)
@@ -128,7 +162,8 @@ def invalid_login(request):
 
 def logout(request):
     auth.logout(request)
-    return render_to_response('task/account/logout.html')
+    return HttpResponseRedirect('/')
+    # return render_to_response('task/account/logout.html')
 
 def register_user(request):
     if request.method == 'POST':
