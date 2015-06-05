@@ -7,11 +7,11 @@ span#username {
 }
 
 ul {
-	display: block;
-	list-style-type: disc;
+	/*display: block;*/
 	list-style: none;
 }
 
 li {
-	display: list-item;
+	list-style: none;
+	/*display: list-item;*/
 }
