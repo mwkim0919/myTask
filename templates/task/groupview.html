@@ -27,18 +27,28 @@
 					</div>
 				</div>
 				<div class="panel-body">
-					<!-- <div class="list-group"> -->
-					<table class="table table-hover">
+					<div class="task-content">
+						<ul class="task-list">
+							<li>
+								<div class="task-title">
+									<span class="task-title-sp">{{ task.taskName }}</span>
+									<span class="badge bg-theme">Done</span>
+									<div class="pull-right hidden-phone">
+										<button class="btn btn-success btn-xs">Edit</button>
+										<button class="btn btn-danger btn-xs">Delete</button>
+									</div>
+								</div>
+							</li>
+						</ul>
+					<!-- <table class="table table-hover">
 					{% for task in pTasks %}
 						{% if task.done == True %}
-							<!-- <li class="list-group-item">{{ task.taskName }}<span class="pull-right"><button class="btn btn-default" type="submit">Button</button><button class="btn btn-default" type="submit">Button</button></span></li> -->
 							<tr class="success">
 								<td class="col-md-6"><b>{{ task.taskName }}</b></td>
 								<td><button class="btn btn-success" type="submit">Edit</button>
 								<button class="btn btn-danger" type="submit">Delete</button></td>
 							</tr>
 						{% else %}
-							<!-- <li class="list-group-item">{{ ask.taskName }}<span class="pull-right"><button class="btn btn-default" type="submit">Button</button><button class="btn btn-default" type="submit">Button</button></span></li> -->
 							<tr class="danger">
 								<td class="col-md-6"><b>{{ task.taskName }}</b></td>
 								<td><button class="btn btn-success" type="submit">Edit</button>
@@ -46,7 +56,7 @@
 							</tr>
 						{% endif %}
 					{% endfor %}
-					</table>
+					</table> -->
 				</div>
 			</div>
 		</div>
@@ -170,7 +180,7 @@
 					<input type="text" class="form-control" name="endDateTime" value="" id="date_timepicker_end" placeholder="yyyy/mm/dd hh:mm">
 				</div> -->
 			</div>
-			<<!-- div class="modal-footer">
+			<!-- div class="modal-footer">
 				<button type="button" onclick="addTask()" class="btn btn-primary">Submit</button>
 			</div> -->
 		</div>

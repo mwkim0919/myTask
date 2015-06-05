@@ -1,4 +1,5 @@
 from django.contrib import auth
+from django.contrib.auth.decorators import login_required
 from django.core import serializers
 from django.core.context_processors import csrf
 from django.http import HttpResponseRedirect, HttpResponse
