@@ -112,6 +112,8 @@
 				</div>
 			</div>
 		</div>
+		<div id="output">
+		</div>
 	</div>
 </div>
 
@@ -123,16 +125,30 @@
 				<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
 				<h4 class="modal-title" id="myModalLabel">Add Personal Task</h4>
 			</div>
-			<form>
 			<div class="modal-body">
-				<div class="form-group"> 
+				<form onsubmit="return false;">
+					Task Name:<br />
+					<input type="text" id="taskName" /><br />
+					Task Type:<br />
+					<input type="text" id="taskType" /><br />
+					Description:<br />
+					<input type="text" id="description" /><br />
+					Location:<br />
+					<input type="text" id="location" /><br />
+					Start:<br />
+					<input type="text" id="date_timepicker_start" /><br />
+					End:<br />
+					<input type="text" id="date_timepicker_end" /><br />
+					<button class="updateButton" onclick="addTask()">Submit</button>
+				</form>
+				<!-- <div class="form-group"> 
 					<label for="taskName">Name:</label>
 					<input type="text" class="form-control" name="taskName" value="" id="taskName" placeholder="Task Name">
 				</div>
 				<fieldset disabled>
 				<div class="form-group">
 					<label for="disabledSelect">Task Type:</label>
-					<select id="disabledSelect" name="taskType" value="Personal" class="form-control">
+					<select id="disabledSelect taskType" name="taskType" value="Personal" class="form-control">
 						<option>Personal</option>
 					</select>
 				</div>
@@ -147,17 +163,16 @@
 				</div>
 				<div class="form-group">
 					<label for="startDateTime">Start:</label>
-					<input type="text" class="form-control" name="startDateTime" value="" id="date_timepicker_start">
+					<input type="text" class="form-control" name="startDateTime" value="" id="date_timepicker_start" placeholder="yyyy/mm/dd hh:mm">
 				</div>
 				<div class="form-group">
 					<label for="endDateTime">End:</label>
-					<input type="text" class="form-control" name="endDateTime" value="" id="date_timepicker_end">
-				</div>
+					<input type="text" class="form-control" name="endDateTime" value="" id="date_timepicker_end" placeholder="yyyy/mm/dd hh:mm">
+				</div> -->
 			</div>
-			<div class="modal-footer">
+			<<!-- div class="modal-footer">
 				<button type="button" onclick="addTask()" class="btn btn-primary">Submit</button>
-			</div>
-			</form>
+			</div> -->
 		</div>
 	</div>
 </div>

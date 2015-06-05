@@ -13,6 +13,7 @@ from datetime import datetime
 def home(request):
     return render(request, 'task/home.html')
 
+@login_required
 def groupView(request):
     if request.user.is_authenticated():
         userID = request.user.id
@@ -45,30 +46,41 @@ def groupView(request):
     else:
         return HttpResponseRedirect('/accounts/login')
 
-def detailView(request):
-    if request.user.is_authenticated():
-        userID = request.user.id
-        user = User.objects.get(id=userID)
+# def detailView(request):
 
-
+@login_required
 def addTask(request):
-    if request.method == 'POST':
-        if request.POST['method'] == 'add':
-            taskName = request.POST['taskName']
-            taskType = request.POST.get('taskType', '')
-            description = request.POST['description']
-            location = request.POST['location']
-            startDateTime = request.POST['startDateTime']
-            endDateTime = request.POST['endDateTime']
-            done = request.POST['done']
-            userID = request.user.id
-            user = User.objects.get(id = userID)
-            task = Task(taskName = taskName, taskType = taskType, description = description,
-                location = location, startDateTime = startDateTime, endDateTime = endDateTime,
-                done = done, user = user)
-            task.save()
-            return HttpResponseRedirect('/groupview')
-    return HttpResponseRedirect('/groupview/add')
+    test = request.POST.get("taskName", "")
+
+    response_data = {}
+    try:
+        response_data['result'] = "writing the blog was a success!"
+        response_data['message'] = test
+    except:
+        response_data['result'] = "Oh NO!"
+        response_data['message'] = "The subprocess module did not run the script correctly."
+
+    return HttpResponse(json.dumps(response_data), content_type="application.json")
+    
+# def addTask(request):
+#     if request.method == 'POST':
+#         if request.POST['method'] == 'add':
+#             taskName = request.POST['taskName']
+#             # taskType = request.POST.get('taskType', '')
+#             taskType = request.POST['taskType']
+#             description = request.POST['description']
+#             location = request.POST['location']
+#             startDateTime = request.POST['startDateTime']
+#             endDateTime = request.POST['endDateTime']
+#             done = request.POST['done']
+#             userID = request.user.id
+#             user = User.objects.get(id = userID)
+#             task = Task(taskName = taskName, taskType = taskType, description = description,
+#                 location = location, startDateTime = startDateTime, endDateTime = endDateTime,
+#                 done = done, user = user)
+#             task.save()
+#             return HttpResponseRedirect('/groupview')
+#     return HttpResponseRedirect('/groupview/add')
 
 def editTask(request):
     if request.method == 'POST':
